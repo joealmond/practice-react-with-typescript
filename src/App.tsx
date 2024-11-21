@@ -1,26 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
-import Message from './Message';
+import TodoList from './TodoList';
+import { getTodos } from './services';
 
-const greet = "HI All!"
-let count = 0
+interface Todo {
+  id: number;
+  title: string;
+}
 
 function App() {
-  const [messages, setMessages] = useState<string[]>([])
+  const [todos, setTodos] = useState<Todo[]>([])
 
-  const addMessage = (message: string): void => {
-    message = `${message} ${count}`
-    count++
-    setMessages([message, ...messages])
+  useEffect(()=>{
+    loadTodos()
+  },[])
+
+  const loadTodos = async () => {
+    const todosData = await getTodos();
+    setTodos(todosData)
   }
 
   return (
     <div className="App">
-      <button type="button" onClick={()=>addMessage(greet)}>Add!</button>
-      <ul>
-        {messages.map((item, index)=> <Message id={index} message={item}/>)}
-      </ul>
-      
+      <TodoList todoItems={todos}/>
     </div>
   );
 }
