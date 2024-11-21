@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Message from './Message';
+
+const greet = "HI All!"
+let count = 0
 
 function App() {
+  const [messages, setMessages] = useState<string[]>([])
+
+  const addMessage = (message: string): void => {
+    message = `${message} ${count}`
+    count++
+    setMessages([message, ...messages])
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button type="button" onClick={()=>addMessage(greet)}>Add!</button>
+      <ul>
+        {messages.map((item, index)=> <Message id={index} message={item}/>)}
+      </ul>
+      
     </div>
   );
 }
