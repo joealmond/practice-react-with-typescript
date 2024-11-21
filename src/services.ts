@@ -1,10 +1,11 @@
-import data from "./data"
-
 interface Todo {
     id: number;
     title: string;
   }
   
+const url = "https://jsonplaceholder.typicode.com/todos";
+
 export async function getTodos(): Promise<Todo[]> {
-    return data
+    const data = await fetch(url);
+    return data.json()
 }
