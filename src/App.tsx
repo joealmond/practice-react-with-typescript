@@ -20,9 +20,13 @@ function App() {
     setTodos(todosData)
   }
 
+  const removeTodo = (id: number) => {
+    setTodos(todos.filter(todo => todo.id !== id))
+  }
+
   return (
     <div className="App">
-      <TodoList todoItems={todos}/>
+      <TodoList todoItems={todos} onRemoveTodo={removeTodo}/>
     </div>
   );
 }

@@ -6,13 +6,16 @@ interface Todo {
 }
 
 interface TodoListProps {
-  todoItems: Todo[]
+  todoItems: Todo[];
+  onRemoveTodo: (id: number) => void;
 }
 
-const TodoList = ({ todoItems }: TodoListProps) => {
+const TodoList = ({ todoItems, onRemoveTodo }: TodoListProps) => {
   return (
     <ul>
-      {todoItems.map((item)=><li key={item.id}>{item.title}</li>)}
+      {todoItems.map((item)=><li key={item.id}>{item.title}
+        <button onClick={()=> onRemoveTodo(item.id)}>Delete</button>
+      </li>)}
     </ul>
   )
 }
